@@ -24,4 +24,18 @@ jobs:
 
       - name: Run ETL Job
         run: |
-          python iss_location.py         
+          python iss_location.py
+
+      - name: Commit and Push CSV
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          
+          if [ -f "output.csv" ]; then
+            echo "output.csv found. Adding to repo..."
+            git add output.csv
+            git commit -m "Update output.csv $(date)"
+            git push
+          else
+            echo "output.csv NOT FOUND"
+          fi
