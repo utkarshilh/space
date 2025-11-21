@@ -24,4 +24,4 @@ jobs:
 
       - name: Run ETL Job
         run: |
-          python fetch_space_data.py
+          python iss_location.py         
