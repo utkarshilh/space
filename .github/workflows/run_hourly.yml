@@ -30,12 +30,16 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
+
+          # Ensure we have the latest code before pushing
+          git pull --rebase origin main || true
           
           if [ -f "output.csv" ]; then
             echo "output.csv found. Adding to repo..."
             git add output.csv
-            git commit -m "Update output.csv $(date)"
-            git push
+            git commit -m "Update output.csv $(date)" || echo "No changes to commit"
+            git push origin main
           else
             echo "output.csv NOT FOUND"
           fi
+
